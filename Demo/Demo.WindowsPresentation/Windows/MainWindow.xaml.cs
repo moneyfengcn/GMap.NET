@@ -49,6 +49,7 @@ namespace Demo.WindowsPresentation
             //
 
             // set cache mode only if no internet avaible
+            /*
             if (!Stuff.PingNetwork("google.com"))
             {
                 MainMap.Manager.Mode = AccessMode.CacheOnly;
@@ -57,11 +58,11 @@ namespace Demo.WindowsPresentation
                     MessageBoxButton.OK,
                     MessageBoxImage.Warning);
             }
-
+            */
             GoogleMapProvider.Instance.ApiKey = Stuff.GoogleMapsApiKey;
 
             // config map
-            MainMap.MapProvider = GMapProviders.OpenStreetMap;
+            MainMap.MapProvider = GMapProviders.AMap;
             MainMap.Position = new PointLatLng(54.6961334816182, 25.2985095977783);
 
             MainMap.TouchEnabled = false;

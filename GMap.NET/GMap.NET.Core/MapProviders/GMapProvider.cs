@@ -51,6 +51,8 @@ namespace GMap.NET.MapProviders
 
         public static readonly EmptyProvider EmptyProvider = EmptyProvider.Instance;
 
+        public static readonly AMapProvider AMap = AMapProvider.Instance;
+
         public static readonly OpenCycleMapProvider OpenCycleMap = OpenCycleMapProvider.Instance;
         public static readonly OpenCycleLandscapeMapProvider OpenCycleLandscapeMap = OpenCycleLandscapeMapProvider.Instance;
         public static readonly OpenCycleTransportMapProvider OpenCycleTransportMap = OpenCycleTransportMapProvider.Instance;

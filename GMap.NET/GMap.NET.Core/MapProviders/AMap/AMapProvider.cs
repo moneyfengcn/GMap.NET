@@ -1,0 +1,76 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using GMap.NET.Projections;
+
+namespace GMap.NET.MapProviders
+{
+    public class AMapProvider : GMapProvider
+    {
+        public static readonly AMapProvider Instance = new AMapProvider();
+
+        readonly Guid id = new Guid("EF3DD303-3F74-4938-BF40-232D0595EE88");
+
+        public AMapProvider()
+        {
+            MaxZoom = null;
+            RefererUrl = "http://www.amap.com/";
+            Copyright = string.Format("©{0} 高德 Corporation, ©{0} NAVTEQ, ©{0} Image courtesy of NASA", DateTime.Today.Year);
+        }
+
+        public override PureProjection Projection
+        {
+            get { return MercatorProjection.Instance; }
+        }
+
+        GMapProvider[] overlays;
+        public override GMapProvider[] Overlays
+        {
+            get
+            {
+                if (overlays == null)
+                {
+                    overlays = new GMapProvider[] { this };
+                }
+                return overlays;
+            }
+        }
+
+        public override Guid Id
+        {
+            get { return id; }
+        }
+
+        readonly string name = "AMap";
+        public override string Name
+        {
+            get
+            {
+                return name;
+            }
+        }
+
+
+
+        public override PureImage GetTileImage(GPoint pos, int zoom)
+        {
+            string url = MakeTileImageUrl(pos, zoom, LanguageStr);
+
+            return GetTileImageUsingHttp(url);
+        }
+
+        static readonly string UrlFormat = "http://webrd04.is.autonavi.com/appmaptile?x={0}&y={1}&z={2}&lang=zh_cn&size=1&scale=1&style=7";
+        string MakeTileImageUrl(GPoint pos, int zoom, string language)
+        {
+
+            //http://webrd04.is.autonavi.com/appmaptile?x=5&y=2&z=3&lang=zh_cn&size=1&scale=1&style=7
+            string url = string.Format(UrlFormat, pos.X, pos.Y, zoom);
+            Debug.WriteLine("url:" + url);
+            return url;
+        }       
+    }
+}
+
